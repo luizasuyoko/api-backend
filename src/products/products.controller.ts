@@ -1,10 +1,12 @@
 
-import { Controller, Get, Post, Put, Delete, Param, Body, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, NotFoundException, UseGuards } from '@nestjs/common';
 import { ProductsService } from './products.service'; // Importar o service
 import { createProductDto } from './dto/create-product.dto';
 import { updateProductDto } from './dto/update-product.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('products')
+@UseGuards(AuthGuard('jwt'))
 export class ProductsController {
   // Injeção de dependência via construtor
   constructor(private readonly productsService: ProductsService) {}
